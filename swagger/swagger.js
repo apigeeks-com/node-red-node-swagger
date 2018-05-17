@@ -127,8 +127,14 @@ module.exports = function(RED) {
 
     function checkWiresForHttpResponse (node) {
         var wires = node.wires[0];
+
         for(var i in wires){
             var newNode = RED.nodes.getNode(wires[i]);
+
+            if (!newNode) {
+                return true;
+            }
+
             if(newNode.type == "http response"){
                 return true;
             } else if(checkWiresForHttpResponse(newNode)){
